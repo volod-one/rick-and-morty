@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -30,6 +32,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.SubcomposeAsyncImage
 import kotlinx.coroutines.delay
 import one.volod.core.network.KtorClient
 import one.volod.core.network.models.domain.Character
@@ -94,15 +97,7 @@ fun CharacterDetailsScreen(
         contentPadding = PaddingValues(16.dp)
     ) {
         if (character == null) {
-            item {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    CircularProgressIndicator(modifier = Modifier.size(72.dp))
-                }
-            }
+            item { LoadingState() }
             return@LazyColumn
         }
 
@@ -118,7 +113,15 @@ fun CharacterDetailsScreen(
 
         // Image
         item {
-            // TODO
+            SubcomposeAsyncImage(
+                model = character!!.imageUrl,
+                contentDescription = "Character image",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1f)
+                    .clip(RoundedCornerShape(12.dp)),
+                loading = { LoadingState() }
+            )
         }
 
         // Data points
@@ -138,6 +141,7 @@ fun CharacterDetailsScreen(
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .padding(horizontal = 32.dp)
+                    .fillMaxWidth()
                     .border(
                         width = 1.dp,
                         color = Color.Cyan, // RickAction
@@ -174,5 +178,16 @@ fun DataPointComponent(dataPoint: DataPoint) {
             fontSize = 24.sp,
             color = Color.White // RickTextPrimary,
         )
+    }
+}
+
+@Composable
+fun LoadingState() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+    ) {
+        CircularProgressIndicator(modifier = Modifier.size(72.dp))
     }
 }
