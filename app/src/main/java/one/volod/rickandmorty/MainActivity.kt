@@ -16,8 +16,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.coroutines.delay
-import one.volod.core.network.Character
 import one.volod.core.network.KtorClient
+import one.volod.core.network.models.domain.Character
 import one.volod.rickandmorty.ui.theme.RickandmortyTheme
 
 class MainActivity : ComponentActivity() {
