@@ -42,6 +42,7 @@ import one.volod.rickandmorty.components.character.CharacterDetailsNamePlateComp
 fun CharacterDetailsScreen(
     ktorClient: KtorClient,
     characterId: Int,
+    onEpisodeClicked: (Int) -> Unit,
 ) {
     var character by remember { mutableStateOf<Character?>(null) }
 
@@ -156,7 +157,7 @@ fun CharacterDetailsScreen(
                     )
                     .clip(RoundedCornerShape(12.dp))
                     .clickable {
-                        // TODO
+                        onEpisodeClicked(characterId)
                     }
                     .padding(vertical = 8.dp),
             )
