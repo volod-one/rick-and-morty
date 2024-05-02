@@ -89,7 +89,6 @@ fun CharacterDetailsScreen(
     }
 
     LaunchedEffect(key1 = Unit, block = {
-        delay(500)
         ktorClient
             .getCharacter(characterId)
             .onSuccess {
