@@ -39,14 +39,20 @@ class MainActivity : ComponentActivity() {
                 ) {
                     NavHost(navController = navController, startDestination = "home_screen") {
                         composable(route = "home_screen") {
-                            HomeScreen(onCharacterSelected = {
-                                // TODO: navigate
+                            HomeScreen(onCharacterSelected = { characterId ->
+                                navController.navigate("character_details/$characterId")
                             })
                         }
 
-                        composable(route = "character_details") {
+                        composable(
+                            route = "character_details/{characterId}",
+                            arguments = listOf(navArgument("characterId") {
+                                type = NavType.IntType
+                            })
+                        ) { backStackEntry ->
+                            val characterId = backStackEntry.arguments?.getInt("characterId") ?: -1
                             CharacterDetailsScreen(
-                                characterId = 1,
+                                characterId = characterId,
                                 onEpisodeClicked = { character ->
                                     navController.navigate("character_episodes/$character")
                                 }
@@ -55,9 +61,9 @@ class MainActivity : ComponentActivity() {
 
                         composable(
                             route = "character_episodes/{characterId}",
-                            arguments = listOf(
-                                navArgument("characterId") { type = NavType.IntType }
-                            )
+                            arguments = listOf(navArgument("characterId") {
+                                type = NavType.IntType
+                            })
                         ) { backStackEntry ->
                             val characterId = backStackEntry.arguments?.getInt("characterId") ?: -1
                             CharacterEpisodeScreen(
