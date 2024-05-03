@@ -16,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import one.volod.core.network.KtorClient
 import one.volod.rickandmorty.screens.CharacterDetailsScreen
 import one.volod.rickandmorty.screens.CharacterEpisodeScreen
+import one.volod.rickandmorty.screens.HomeScreen
 import one.volod.rickandmorty.ui.theme.RickandmortyTheme
 import javax.inject.Inject
 
@@ -36,8 +37,14 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NavHost(navController = navController, startDestination = "character_details") {
-                        composable("character_details") {
+                    NavHost(navController = navController, startDestination = "home_screen") {
+                        composable(route = "home_screen") {
+                            HomeScreen(onCharacterSelected = {
+                                // TODO: navigate
+                            })
+                        }
+
+                        composable(route = "character_details") {
                             CharacterDetailsScreen(
                                 characterId = 1,
                                 onEpisodeClicked = { character ->
@@ -45,6 +52,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         }
+
                         composable(
                             route = "character_episodes/{characterId}",
                             arguments = listOf(
@@ -63,4 +71,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
