@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -71,5 +73,12 @@ dependencies {
 
     implementation("androidx.navigation:navigation-compose:2.7.7")
 
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-android-compiler:2.48")
+
     implementation(project(":core:network"))
+}
+
+kapt {
+    correctErrorTypes = true
 }

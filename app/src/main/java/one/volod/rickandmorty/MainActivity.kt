@@ -12,14 +12,18 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import dagger.hilt.android.AndroidEntryPoint
 import one.volod.core.network.KtorClient
 import one.volod.rickandmorty.screens.CharacterDetailsScreen
 import one.volod.rickandmorty.screens.CharacterEpisodeScreen
 import one.volod.rickandmorty.ui.theme.RickandmortyTheme
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val ktorClient = KtorClient()
+    @Inject
+    lateinit var ktorClient: KtorClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
