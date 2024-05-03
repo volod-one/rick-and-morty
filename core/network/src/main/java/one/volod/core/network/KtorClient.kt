@@ -19,6 +19,10 @@ import one.volod.core.network.models.remote.toDomainCharacter
 import one.volod.core.network.models.remote.toDomainEpisode
 
 class KtorClient {
+
+    /**
+     * @property client: HttpClient
+     */
     private val client = HttpClient(OkHttp) {
         defaultRequest { url("https://rickandmortyapi.com/api/") }
 
@@ -33,8 +37,16 @@ class KtorClient {
         }
     }
 
+    /**
+     * @property characterCache: MutableMap<Int, Character>
+     * Int used as Character ID
+     */
     private var characterCache = mutableMapOf<Int, Character>()
 
+    /**
+     * @param id: Int
+     * @return ApiOperation<Character>
+     */
     suspend fun getCharacter(id: Int): ApiOperation<Character> {
         characterCache[id]?.let { return ApiOperation.Success(it) }
 
@@ -46,15 +58,41 @@ class KtorClient {
         }
     }
 
-    suspend fun getEpisodes(episodeIds: List<Int>): ApiOperation<List<Episode>> {
-        val idsCommaSeparated = episodeIds.joinToString(separator = ",")
+    /**
+     * @param episodeId: List<Int>
+     * @return ApiOperation<Episode>
+     */
+    suspend fun getEpisode(episodeId: Int): ApiOperation<Episode> {
         return safeApiCall {
-            client.get("episode/$idsCommaSeparated")
-                .body<List<RemoteEpisode>>()
-                .map { it.toDomainEpisode() }
+            client.get("episode/$episodeId")
+                .body<RemoteEpisode>()
+                .toDomainEpisode()
         }
     }
 
+    /**
+     * @param episodeIds: List<Int>
+     * @return ApiOperation<List<Episode>>
+     */
+    suspend fun getEpisodes(episodeIds: List<Int>): ApiOperation<List<Episode>> {
+        return if (episodeIds.size == 1) {
+            getEpisode(episodeIds.first()).mapSuccess { episode ->
+                listOf(episode)
+            }
+        } else {
+            val idsCommaSeparated = episodeIds.joinToString(separator = ",")
+            safeApiCall {
+                client.get("episode/$idsCommaSeparated")
+                    .body<List<RemoteEpisode>>()
+                    .map { it.toDomainEpisode() }
+            }
+        }
+    }
+
+    /**
+     * @param apiCall: () -> T
+     * @return ApiOperation<T>
+     */
     private inline fun <T> safeApiCall(apiCall: () -> T): ApiOperation<T> =
         try {
             ApiOperation.Success(data = apiCall())
@@ -64,14 +102,38 @@ class KtorClient {
 }
 
 sealed interface ApiOperation<T> {
+
+    /**
+     * @param data: T
+     */
     data class Success<T>(val data: T) : ApiOperation<T>
+
+    /**
+     * @param exception: Exception
+     */
     data class Failure<T>(val exception: Exception) : ApiOperation<T>
 
+    /**
+     * @param transform: (T) -> R
+     */
+    fun <R> mapSuccess(transform: (T) -> R): ApiOperation<R> {
+        return when (this) {
+            is Success -> Success(transform(data))
+            is Failure -> Failure(exception)
+        }
+    }
+
+    /**
+     * @param block: (T) -> Unit
+     */
     fun onSuccess(block: (T) -> Unit): ApiOperation<T> {
         if (this is Success) block(data)
         return this
     }
 
+    /**
+     *  @param block: (Exception) -> Unit
+     */
     fun onFailure(block: (Exception) -> Unit): ApiOperation<T> {
         if (this is Failure) block(exception)
         return this
