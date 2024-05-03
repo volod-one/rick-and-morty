@@ -37,7 +37,7 @@ fun CharacterStatusComponent(characterStatus: CharacterStatus) {
 
 @Preview
 @Composable
-fun CharacterStatusComponentPreviewAlive() {
+private fun CharacterStatusComponentPreviewAlive() {
     RickandmortyTheme {
         CharacterStatusComponent(
             characterStatus = CharacterStatus.Alive
@@ -47,7 +47,7 @@ fun CharacterStatusComponentPreviewAlive() {
 
 @Preview
 @Composable
-fun CharacterStatusComponentPreviewDead() {
+private fun CharacterStatusComponentPreviewDead() {
     RickandmortyTheme {
         CharacterStatusComponent(
             characterStatus = CharacterStatus.Dead
@@ -57,7 +57,7 @@ fun CharacterStatusComponentPreviewDead() {
 
 @Preview
 @Composable
-fun CharacterStatusComponentPreviewUnknown() {
+private fun CharacterStatusComponentPreviewUnknown() {
     RickandmortyTheme {
         CharacterStatusComponent(
             characterStatus = CharacterStatus.Unknown

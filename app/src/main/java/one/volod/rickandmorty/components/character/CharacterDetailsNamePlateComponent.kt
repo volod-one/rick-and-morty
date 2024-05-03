@@ -33,7 +33,7 @@ fun CharacterDetailsNamePlateComponent(
 
 @Preview
 @Composable
-fun CharacterDetailsNamePlateComponentPreviewAlive() {
+private fun CharacterDetailsNamePlateComponentPreviewAlive() {
     RickandmortyTheme {
         CharacterDetailsNamePlateComponent(
             name = "Rick Sanchez",
@@ -44,7 +44,7 @@ fun CharacterDetailsNamePlateComponentPreviewAlive() {
 
 @Preview
 @Composable
-fun CharacterDetailsNamePlateComponentPreviewDead() {
+private fun CharacterDetailsNamePlateComponentPreviewDead() {
     RickandmortyTheme {
         CharacterDetailsNamePlateComponent(
             name = "Rick Sanchez",
@@ -56,7 +56,7 @@ fun CharacterDetailsNamePlateComponentPreviewDead() {
 
 @Preview
 @Composable
-fun CharacterDetailsNamePlateComponentPreviewUnknown() {
+private fun CharacterDetailsNamePlateComponentPreviewUnknown() {
     RickandmortyTheme {
         CharacterDetailsNamePlateComponent(
             name = "Rick Sanchez",
