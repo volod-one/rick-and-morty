@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "rickandmorty"
 include(":app")
 include(":core:network")
+include(":ui:common")
