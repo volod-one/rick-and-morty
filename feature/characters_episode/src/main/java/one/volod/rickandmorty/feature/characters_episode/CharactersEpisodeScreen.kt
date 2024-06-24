@@ -29,6 +29,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import one.volod.core.network.KtorClient
+import one.volod.core.network.endpoints.getCharacter
+import one.volod.core.network.endpoints.getEpisodes
 import one.volod.rickandmorty.core.domain.models.domain.Character
 import one.volod.rickandmorty.core.domain.models.domain.Episode
 import one.volod.ui.common.components.common.CharacterImage

@@ -1,19 +1,13 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    id("kotlinx-serialization")
+    kotlin("kapt")
 }
 
 android {
     namespace = "one.volod.core.network"
     compileSdk = libs.versions.sdk.get().toInt()
 
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
 
     buildTypes {
         release {
@@ -36,5 +30,10 @@ android {
 dependencies {
     implementation(project(":core:domain"))
 
+    // Ktor
     implementation(libs.bundles.ktor)
+
+    // Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
 }

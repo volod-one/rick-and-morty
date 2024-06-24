@@ -2,6 +2,8 @@ package one.volod.rickandmorty.core.repository
 
 import one.volod.core.network.ApiOperation
 import one.volod.core.network.KtorClient
+import one.volod.core.network.endpoints.getCharacter
+import one.volod.core.network.endpoints.getCharacterByPage
 import one.volod.rickandmorty.core.domain.models.domain.Character
 import one.volod.rickandmorty.core.domain.models.domain.CharacterPage
 import javax.inject.Inject
