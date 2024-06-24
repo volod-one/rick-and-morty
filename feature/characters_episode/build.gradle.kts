@@ -1,26 +1,19 @@
 plugins {
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    kotlin("kapt")
     kotlin("plugin.serialization")
-    id("com.google.dagger.hilt.android")
+    kotlin("kapt")
 }
 
 android {
-    namespace = "one.volod.rickandmorty"
+    namespace = "one.volod.rickandmorty.feature.characters_episode"
     compileSdk = libs.versions.sdk.get().toInt()
 
     defaultConfig {
-        applicationId = "one.volod.rickandmorty"
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.sdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -45,34 +38,29 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
 }
 
 dependencies {
 
+    implementation(project(":core:domain"))
     implementation(project(":core:network"))
+    implementation(project(":core:repository"))
     implementation(project(":core:ui:common"))
-    implementation(project(":feature:home"))
-    implementation(project(":feature:character_details"))
-    implementation(project(":feature:characters_episode"))
 
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
-
+    // Core
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.appcompat)
 
+    // Compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.compose)
 
+    // Navigation
+    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
-}
+    implementation(libs.kotlinx.serialization.json)
 
-kapt {
-    correctErrorTypes = true
+    // Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
 }

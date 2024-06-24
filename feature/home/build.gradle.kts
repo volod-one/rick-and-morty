@@ -1,11 +1,12 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    id("kotlinx-serialization")
+    kotlin("plugin.serialization")
+    kotlin("kapt")
 }
 
 android {
-    namespace = "one.volod.core.network"
+    namespace = "one.volod.rickandmorty.feature.home"
     compileSdk = libs.versions.sdk.get().toInt()
 
     defaultConfig {
@@ -31,10 +32,35 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.1"
+    }
 }
 
 dependencies {
-    implementation(project(":core:domain"))
 
-    implementation(libs.bundles.ktor)
+    implementation(project(":core:domain"))
+    implementation(project(":core:network"))
+    implementation(project(":core:repository"))
+    implementation(project(":core:ui:common"))
+
+    // Core
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+
+    // Compose
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.compose)
+
+    // Navigation
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
+
+    // Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
 }

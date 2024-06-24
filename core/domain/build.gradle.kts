@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "one.volod.core.network"
+    namespace = "one.volod.rickandmorty.core.domain"
     compileSdk = libs.versions.sdk.get().toInt()
 
     defaultConfig {
@@ -34,7 +34,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:domain"))
 
-    implementation(libs.bundles.ktor)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.compose.ui.graphics)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.ktor.serialization.kotlinx.json)
 }

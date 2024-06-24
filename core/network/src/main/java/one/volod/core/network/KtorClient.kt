@@ -11,15 +11,15 @@ import io.ktor.client.plugins.logging.SIMPLE
 import io.ktor.client.request.get
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
-import one.volod.core.network.models.domain.Character
-import one.volod.core.network.models.domain.CharacterPage
-import one.volod.core.network.models.domain.Episode
-import one.volod.core.network.models.remote.RemoteCharacter
-import one.volod.core.network.models.remote.RemoteCharacterPage
-import one.volod.core.network.models.remote.RemoteEpisode
-import one.volod.core.network.models.remote.toDomainCharacter
-import one.volod.core.network.models.remote.toDomainCharacterPage
-import one.volod.core.network.models.remote.toDomainEpisode
+import one.volod.rickandmorty.core.domain.models.domain.Character
+import one.volod.rickandmorty.core.domain.models.domain.CharacterPage
+import one.volod.rickandmorty.core.domain.models.domain.Episode
+import one.volod.rickandmorty.core.domain.models.remote.RemoteCharacter
+import one.volod.rickandmorty.core.domain.models.remote.RemoteCharacterPage
+import one.volod.rickandmorty.core.domain.models.remote.RemoteEpisode
+import one.volod.rickandmorty.core.domain.models.remote.toDomainCharacter
+import one.volod.rickandmorty.core.domain.models.remote.toDomainCharacterPage
+import one.volod.rickandmorty.core.domain.models.remote.toDomainEpisode
 
 class KtorClient {
 
