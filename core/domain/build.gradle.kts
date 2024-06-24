@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    id("kotlinx-serialization")
+    kotlin("kapt")
 }
 
 android {
@@ -35,9 +35,15 @@ android {
 
 dependencies {
 
+    implementation(project(":core:repository"))
+    implementation(project(":core:models"))
+    implementation(project(":core:network"))
+
+    // Core
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.compose.ui.graphics)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.ktor.serialization.kotlinx.json)
+
+    // Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
 }

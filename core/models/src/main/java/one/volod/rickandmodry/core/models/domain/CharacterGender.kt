@@ -1,4 +1,4 @@
-package one.volod.rickandmorty.core.domain.models.domain
+package one.volod.rickandmodry.core.models.domain
 
 sealed class CharacterGender(val displayName: String) {
     data object Male : CharacterGender("Male")

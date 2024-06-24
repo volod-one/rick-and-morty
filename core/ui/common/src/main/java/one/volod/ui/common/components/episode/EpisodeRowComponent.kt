@@ -15,7 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import one.volod.rickandmorty.core.domain.models.domain.Episode
+import one.volod.rickandmodry.core.models.domain.Episode
 import one.volod.ui.common.components.common.DataPoint
 import one.volod.ui.common.components.common.DataPointComponent
 

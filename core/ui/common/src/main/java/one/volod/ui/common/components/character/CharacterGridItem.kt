@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import one.volod.rickandmorty.core.domain.models.domain.Character
+import one.volod.rickandmodry.core.models.domain.Character
 import one.volod.ui.common.components.common.CharacterImage
 
 @Composable

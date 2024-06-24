@@ -1,7 +1,7 @@
 package one.volod.core.network
 
 import io.ktor.client.HttpClient
-import one.volod.rickandmorty.core.domain.models.domain.Character
+import one.volod.rickandmodry.core.models.domain.Character
 import javax.inject.Inject
 
 class KtorClient @Inject constructor(

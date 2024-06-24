@@ -28,7 +28,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:domain"))
+    implementation(project(":core:models"))
 
     // Ktor
     implementation(libs.bundles.ktor)

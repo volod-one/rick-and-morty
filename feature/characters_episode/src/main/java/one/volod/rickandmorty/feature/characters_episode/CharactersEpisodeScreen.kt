@@ -18,21 +18,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlinx.coroutines.launch
-import one.volod.core.network.KtorClient
-import one.volod.core.network.endpoints.getCharacter
-import one.volod.core.network.endpoints.getEpisodes
-import one.volod.rickandmorty.core.domain.models.domain.Character
-import one.volod.rickandmorty.core.domain.models.domain.Episode
+import androidx.hilt.navigation.compose.hiltViewModel
+import one.volod.rickandmodry.core.models.domain.Character
+import one.volod.rickandmodry.core.models.domain.Episode
 import one.volod.ui.common.components.common.CharacterImage
 import one.volod.ui.common.components.common.CharacterNameComponent
 import one.volod.ui.common.components.common.DataPoint
@@ -43,28 +38,13 @@ import one.volod.ui.common.components.episode.EpisodeRowComponent
 @Composable
 fun CharacterEpisodeScreen(
     characterId: Int,
-    ktorClient: KtorClient
+    viewModel: CharacterEpisodeViewModel = hiltViewModel(),
 ) {
-    var characterState by remember { mutableStateOf<Character?>(null) }
-    var episodesState by remember { mutableStateOf<List<Episode>>(emptyList()) }
+    val characterState by viewModel.characterState.collectAsState()
+    val episodesState by viewModel.episodesState.collectAsState()
 
     LaunchedEffect(key1 = Unit, block = {
-        ktorClient
-            .getCharacter(characterId)
-            .onSuccess { character ->
-                characterState = character
-                launch {
-                    ktorClient
-                        .getEpisodes(character.episodeIds)
-                        .onSuccess { episodes ->
-                            episodesState = episodes
-                        }.onFailure {
-                            // TODO
-                        }
-                }
-            }.onFailure {
-                // TODO
-            }
+        viewModel.onLoadData(characterId = characterId)
     })
 
     characterState?.let { character ->

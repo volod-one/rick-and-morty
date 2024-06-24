@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import one.volod.core.network.KtorClient
 import one.volod.rickandmorty.feature.character_details.CharacterDetails
 import one.volod.rickandmorty.feature.character_details.toCharacterDetailsScreen
 import one.volod.rickandmorty.feature.characters_episode.CharacterEpisode
@@ -18,13 +17,9 @@ import one.volod.rickandmorty.feature.characters_episode.toCharactersEpisodeScre
 import one.volod.rickandmorty.feature.home.Home
 import one.volod.rickandmorty.feature.home.toHomeScreen
 import one.volod.ui.common.components.theme.RickandmortyTheme
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    @Inject
-    lateinit var ktorClient: KtorClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +43,7 @@ class MainActivity : ComponentActivity() {
                             }
                         )
 
-                        toCharactersEpisodeScreen(ktorClient = ktorClient)
+                        toCharactersEpisodeScreen()
                     }
                 }
             }

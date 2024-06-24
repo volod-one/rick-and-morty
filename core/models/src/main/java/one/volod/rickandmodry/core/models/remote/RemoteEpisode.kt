@@ -1,7 +1,7 @@
-package one.volod.rickandmorty.core.domain.models.remote
+package one.volod.rickandmodry.core.models.remote
 
 import kotlinx.serialization.Serializable
-import one.volod.rickandmorty.core.domain.models.domain.Episode
+import one.volod.rickandmodry.core.models.domain.Episode
 
 @Serializable
 data class RemoteEpisode(

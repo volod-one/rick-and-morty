@@ -20,7 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import one.volod.rickandmorty.core.domain.models.domain.Character
+import one.volod.rickandmodry.core.models.domain.Character
 import one.volod.ui.common.components.common.CharacterImage
 import one.volod.ui.common.components.common.DataPoint
 import one.volod.ui.common.components.common.DataPointComponent

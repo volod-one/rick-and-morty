@@ -4,12 +4,12 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import one.volod.core.network.ApiOperation
 import one.volod.core.network.KtorClient
-import one.volod.rickandmorty.core.domain.models.domain.Character
-import one.volod.rickandmorty.core.domain.models.domain.CharacterPage
-import one.volod.rickandmorty.core.domain.models.remote.RemoteCharacter
-import one.volod.rickandmorty.core.domain.models.remote.RemoteCharacterPage
-import one.volod.rickandmorty.core.domain.models.remote.toDomainCharacter
-import one.volod.rickandmorty.core.domain.models.remote.toDomainCharacterPage
+import one.volod.rickandmodry.core.models.domain.Character
+import one.volod.rickandmodry.core.models.domain.CharacterPage
+import one.volod.rickandmodry.core.models.remote.RemoteCharacter
+import one.volod.rickandmodry.core.models.remote.RemoteCharacterPage
+import one.volod.rickandmodry.core.models.remote.toDomainCharacter
+import one.volod.rickandmodry.core.models.remote.toDomainCharacterPage
 
 /**
  * @param id: Int

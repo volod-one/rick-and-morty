@@ -1,9 +1,9 @@
-package one.volod.rickandmorty.core.domain.models.remote
+package one.volod.rickandmodry.core.models.remote
 
 import kotlinx.serialization.Serializable
-import one.volod.rickandmorty.core.domain.models.domain.Character
-import one.volod.rickandmorty.core.domain.models.domain.CharacterGender
-import one.volod.rickandmorty.core.domain.models.domain.CharacterStatus
+import one.volod.rickandmodry.core.models.domain.Character
+import one.volod.rickandmodry.core.models.domain.CharacterGender
+import one.volod.rickandmodry.core.models.domain.CharacterStatus
 
 @Serializable
 data class RemoteCharacter(

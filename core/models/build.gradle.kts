@@ -1,16 +1,15 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    kotlin("plugin.serialization")
-    kotlin("kapt")
+    id("kotlinx-serialization")
 }
 
 android {
-    namespace = "one.volod.rickandmorty.feature.character_details"
-    compileSdk = libs.versions.sdk.get().toInt()
+    namespace = "one.volod.rickandmodry.core.models"
+    compileSdk = 34
 
     defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
+        minSdk = 26
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -32,31 +31,12 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
 }
 
 dependencies {
-
-    implementation(project(":core:domain"))
-    implementation(project(":core:models"))
-    implementation(project(":core:network"))
-    implementation(project(":core:ui:common"))
-
     // Compose
     implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.bundles.compose)
+    implementation(libs.compose.ui.graphics)
 
-    // Navigation
-    implementation(libs.androidx.hilt.navigation.compose)
-    implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
-
-    // Hilt
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
 }

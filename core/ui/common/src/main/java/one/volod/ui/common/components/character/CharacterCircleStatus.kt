@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import one.volod.rickandmorty.core.domain.models.domain.CharacterStatus
+import one.volod.rickandmodry.core.models.domain.CharacterStatus
 
 
 @Composable

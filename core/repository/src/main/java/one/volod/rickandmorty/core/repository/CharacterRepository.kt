@@ -4,8 +4,8 @@ import one.volod.core.network.ApiOperation
 import one.volod.core.network.KtorClient
 import one.volod.core.network.endpoints.getCharacter
 import one.volod.core.network.endpoints.getCharacterByPage
-import one.volod.rickandmorty.core.domain.models.domain.Character
-import one.volod.rickandmorty.core.domain.models.domain.CharacterPage
+import one.volod.rickandmodry.core.models.domain.Character
+import one.volod.rickandmodry.core.models.domain.CharacterPage
 import javax.inject.Inject
 
 class CharacterRepository @Inject constructor(private val ktorClient: KtorClient) {

@@ -1,6 +1,6 @@
 package one.volod.rickandmorty.feature.home
 
-import one.volod.rickandmorty.core.domain.models.domain.Character
+import one.volod.rickandmodry.core.models.domain.Character
 
 sealed interface HomeScreenViewState {
     data object Loading : HomeScreenViewState

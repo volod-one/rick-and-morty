@@ -7,7 +7,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import one.volod.rickandmorty.core.domain.models.domain.Character
+import one.volod.rickandmodry.core.models.domain.Character
+import one.volod.rickandmorty.core.domain.usecase.FetchCharacterUseCase
 import one.volod.ui.common.components.common.DataPoint
 import javax.inject.Inject
 
@@ -22,7 +23,7 @@ sealed interface CharacterDetailsViewState {
 
 @HiltViewModel
 class CharacterDetailsViewModel @Inject constructor(
-    private val characterRepository: one.volod.rickandmorty.core.repository.CharacterRepository,
+    private val fetchCharacterUseCase: FetchCharacterUseCase,
 ) : ViewModel() {
 
     private val _internalStorageFlow = MutableStateFlow<CharacterDetailsViewState>(
@@ -32,7 +33,7 @@ class CharacterDetailsViewModel @Inject constructor(
 
     fun fetchCharacter(characterId: Int) = viewModelScope.launch {
         _internalStorageFlow.update { return@update CharacterDetailsViewState.Loading }
-        characterRepository.fetchCharacter(characterId).onSuccess { character ->
+        fetchCharacterUseCase(characterId).onSuccess { character ->
             val dataPoints = buildList {
                 add(
                     DataPoint(

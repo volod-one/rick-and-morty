@@ -1,4 +1,4 @@
-package one.volod.rickandmorty.core.domain.models.domain
+package one.volod.rickandmodry.core.models.domain
 
 data class Episode(
     val id: Int,

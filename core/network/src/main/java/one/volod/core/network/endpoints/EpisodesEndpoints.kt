@@ -4,9 +4,9 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import one.volod.core.network.ApiOperation
 import one.volod.core.network.KtorClient
-import one.volod.rickandmorty.core.domain.models.domain.Episode
-import one.volod.rickandmorty.core.domain.models.remote.RemoteEpisode
-import one.volod.rickandmorty.core.domain.models.remote.toDomainEpisode
+import one.volod.rickandmodry.core.models.domain.Episode
+import one.volod.rickandmodry.core.models.remote.RemoteEpisode
+import one.volod.rickandmodry.core.models.remote.toDomainEpisode
 
 /**
  * @param episodeId: List<Int>
