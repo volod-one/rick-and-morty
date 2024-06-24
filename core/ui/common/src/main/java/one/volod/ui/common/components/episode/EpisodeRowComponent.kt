@@ -20,7 +20,7 @@ import one.volod.ui.common.components.common.DataPoint
 import one.volod.ui.common.components.common.DataPointComponent
 
 @Composable
-fun EpisodeRowComponent(episode: one.volod.rickandmorty.core.domain.models.domain.Episode) {
+fun EpisodeRowComponent(episode: Episode) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         DataPointComponent(
             dataPoint = DataPoint(
@@ -52,7 +52,7 @@ fun EpisodeRowComponent(episode: one.volod.rickandmorty.core.domain.models.domai
 @Preview
 @Composable
 private fun EpisodeRowComponentPreview() {
-    val episode = one.volod.rickandmorty.core.domain.models.domain.Episode(
+    val episode = Episode(
         id = 28,
         name = "The Ricklantis Mixup",
         seasonNumber = 3,
