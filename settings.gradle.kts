@@ -20,7 +20,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "rickandmorty"
-include(":app")
+include(":rickandmorty-app")
 include(":core:domain")
 include(":core:models")
 include(":core:network")
