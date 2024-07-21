@@ -41,10 +41,10 @@ android {
 
 dependencies {
 
-    implementation(project(":core:domain"))
-    implementation(project(":core:models"))
-    implementation(project(":core:network"))
-    implementation(project(":core:ui:common"))
+    implementation(project(":shared:domain"))
+    implementation(project(":shared:models"))
+    implementation(project(":shared:network"))
+    implementation(project(":shared:ui:common"))
 
     // Compose
     implementation(platform(libs.androidx.compose.bom))

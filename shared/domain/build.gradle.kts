@@ -5,9 +5,15 @@ plugins {
 }
 
 android {
-    namespace = "one.volod.core.network"
+    namespace = "one.volod.rickandmorty.core.domain"
     compileSdk = libs.versions.sdk.get().toInt()
 
+    defaultConfig {
+        minSdk = libs.versions.minSdk.get().toInt()
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
+    }
 
     buildTypes {
         release {
@@ -28,10 +34,14 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:models"))
 
-    // Ktor
-    implementation(libs.bundles.ktor)
+    implementation(project(":shared:repository"))
+    implementation(project(":shared:models"))
+    implementation(project(":shared:network"))
+
+    // Core
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
 
     // Hilt
     implementation(libs.hilt.android)
