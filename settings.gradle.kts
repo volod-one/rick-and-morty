@@ -21,11 +21,11 @@ dependencyResolutionManagement {
 
 rootProject.name = "rickandmorty"
 include(":compose-app")
+include(":feature:character_details")
+include(":feature:character_episode")
+include(":feature:home")
 include(":shared:domain")
 include(":shared:models")
 include(":shared:network")
 include(":shared:repository")
 include(":shared:ui:common")
-include(":feature:character_details")
-include(":feature:characters_episode")
-include(":feature:home")

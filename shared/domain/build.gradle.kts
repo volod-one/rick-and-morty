@@ -1,49 +1,58 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
-    kotlin("kapt")
+    alias(libs.plugins.kotlinMultiplatform)
+}
+
+kotlin {
+    androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11)
+        }
+    }
+
+    jvm("desktop")
+
+    sourceSets {
+        val desktopMain by getting
+
+        androidMain.dependencies {
+        }
+        commonMain.dependencies {
+            implementation(project(":shared:repository"))
+            implementation(project(":shared:models"))
+            implementation(project(":shared:network"))
+        }
+        nativeMain.dependencies {
+        }
+        desktopMain.dependencies {
+        }
+    }
 }
 
 android {
-    namespace = "one.volod.rickandmorty.core.domain"
+    namespace = "one.volod.rickandmorty.shared.domain"
     compileSdk = libs.versions.sdk.get().toInt()
 
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    sourceSets["main"].res.srcDirs("src/androidMain/res")
+    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
     }
-
     buildTypes {
-        release {
+        getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
-
-dependencies {
-
-    implementation(project(":shared:repository"))
-    implementation(project(":shared:models"))
-    implementation(project(":shared:network"))
-
-    // Core
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-
-    // Hilt
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
 }

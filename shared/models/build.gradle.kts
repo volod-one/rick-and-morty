@@ -1,42 +1,61 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
-    id("kotlinx-serialization")
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.compose.compiler)
+}
+
+kotlin {
+    androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11)
+        }
+    }
+
+    jvm("desktop")
+
+    sourceSets {
+        val desktopMain by getting
+
+        androidMain.dependencies {
+        }
+        commonMain.dependencies {
+            implementation(compose.ui)
+
+            implementation(libs.kotlinx.serialization.json)
+        }
+        nativeMain.dependencies {
+        }
+        desktopMain.dependencies {
+        }
+    }
 }
 
 android {
-    namespace = "one.volod.rickandmodry.core.models"
-    compileSdk = 34
+    namespace = "one.volod.rickandmorty.shared.models"
+    compileSdk = libs.versions.sdk.get().toInt()
 
-    defaultConfig {
-        minSdk = 26
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    sourceSets["main"].res.srcDirs("src/androidMain/res")
+    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
     }
-
     buildTypes {
-        release {
+        getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
-
-dependencies {
-    // Compose
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.compose.ui.graphics)
-
-    implementation(libs.kotlinx.serialization.json)
 }

@@ -34,25 +34,24 @@ kotlin {
         val desktopMain by getting
         androidMain.dependencies {
 
-            implementation(project(":feature:home"))
-            implementation(project(":feature:character_details"))
-            implementation(project(":feature:characters_episode"))
-            implementation(project(":shared:network"))
-            implementation(project(":shared:ui:common"))
-
-            // Core
-            implementation(libs.androidx.core.ktx)
+            implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
-            implementation(libs.androidx.lifecycle.runtime.ktx)
-
-            // Compose
-            implementation(project.dependencies.platform(libs.androidx.compose.bom))
-            implementation(libs.bundles.compose)
-
-            // Navigation
-            implementation(libs.androidx.navigation.compose)
         }
         commonMain.dependencies {
+
+            implementation(project(":feature:home"))
+            implementation(project(":feature:character_details"))
+            implementation(project(":feature:character_episode"))
+
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.material3)
+            implementation(compose.ui)
+            implementation(compose.components.resources)
+            implementation(compose.components.uiToolingPreview)
+
+            // Navigation
+            implementation(libs.navigation.compose)
         }
         nativeMain.dependencies {
         }

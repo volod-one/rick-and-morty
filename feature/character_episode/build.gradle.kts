@@ -2,56 +2,73 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+            jvmTarget.set(JvmTarget.JVM_1_8)
         }
     }
 
     jvm("desktop")
 
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "ComposeApp"
+            isStatic = true
+        }
+    }
+
     sourceSets {
         val desktopMain by getting
-
         androidMain.dependencies {
+
         }
         commonMain.dependencies {
-            implementation(project(":shared:models"))
-            implementation(project(":shared:network"))
+
+            // Compose
+            implementation(compose.material3)
+
+            // Navigation
+            implementation(libs.navigation.compose)
+            implementation(libs.kotlinx.serialization.json)
         }
         nativeMain.dependencies {
         }
         desktopMain.dependencies {
+
         }
     }
 }
 
 android {
-    namespace = "one.volod.rickandmorty.shared.repository"
+    namespace = "one.volod.rickandmorty.feature.character_episode"
     compileSdk = libs.versions.sdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
+    defaultConfig {
+        minSdk = libs.versions.minSdk.get().toInt()
     }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+    buildFeatures {
+        compose = true
     }
 }
